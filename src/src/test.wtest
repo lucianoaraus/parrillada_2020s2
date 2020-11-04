@@ -1,0 +1,64 @@
+import comidas.*
+import comensales.*
+import cocina.*
+
+test "testParrillada1" {
+	
+	const asado = new CorteDeCarne(nombreDelCorte = "asado", calidad = 2, peso = 800)
+	const vacio = new CorteDeCarne(nombreDelCorte = "vacio", calidad = 3, peso = 1200)
+	const matambreDeCerdo = new CorteDeCarne(nombreDelCorte = "matambreDeCerdo", calidad = 1, peso = 1350)
+	const parrillada1 = new Parrillada( cortesDeCarne = [asado, vacio, matambreDeCerdo ])
+	assert.equals(parrillada1.peso(), 3350)
+	assert.equals(parrillada1.valoracion(), 42)
+	
+}
+
+test "comidas" {
+	
+	const hamburguesaDeCarne = new HamburguesaDeCarne(pan = panCasero)
+	const hamburguesaVeggie = new HamburguesaVeggie(pan = panMasaMadre, tipoLegumbre = "garbanzos")
+	assert.equals(hamburguesaDeCarne.valoracion(), 80)
+	assert.equals(hamburguesaVeggie.valoracion(), 122)
+	
+	const provoleta = new Provoleta(peso = 190, tieneEspecias = true)
+	assert.that(provoleta.esEspecial())
+	assert.equals(provoleta.valoracion(), 120)
+	
+	const asado = new CorteDeCarne(nombreDelCorte = "asado", calidad = 10, peso = 250)
+	const entrania = new CorteDeCarne(nombreDelCorte = "entrania", calidad = 7, peso = 200)
+	const chori = new CorteDeCarne(nombreDelCorte = "chori", calidad = 8, peso = 50)
+	const parrillada = new Parrillada(cortesDeCarne = [asado, entrania, chori] )
+	assert.equals(parrillada.valoracion(), 147)
+}
+
+test "comensales" {
+	
+	const provoleta = new Provoleta(peso = 190, tieneEspecias = true)
+	const hamburguesaVeggie1 = new HamburguesaVeggie(pan = panMasaMadre, tipoLegumbre = "garbanzos")
+	const hamburguesaVeggie2 = new HamburguesaVeggie(pan = panMasaMadre, tipoLegumbre = "garbanzos")
+	const vegetariano = new Vegetariano(peso = 68500, comidasIngeridas = [provoleta, hamburguesaVeggie1, hamburguesaVeggie2])
+	assert.that(vegetariano.satisfecho())
+	
+	const asado = new CorteDeCarne(nombreDelCorte = "asado", calidad = 10, peso = 250)
+	const entrania = new CorteDeCarne(nombreDelCorte = "entrania", calidad = 7, peso = 200)
+	const chori = new CorteDeCarne(nombreDelCorte = "chori", calidad = 8, peso = 50)
+	const parrillada = new Parrillada(cortesDeCarne = [asado, entrania, chori] )
+	const comensalPopular = new HambrePopular(peso = 85000, comidasIngeridas = [asado, entrania, chori, parrillada]) 
+	assert.that(comensalPopular.satisfecho())
+
+	const hamburguesaDeCarne1 = new HamburguesaDeCarne(pan = panMasaMadre)
+	const hamburguesaDeCarne2 = new HamburguesaDeCarne(pan = panCasero)
+	const paladarFino = new PaladarFino(peso = 65000, comidasIngeridas = [hamburguesaDeCarne1])
+	assert.that(paladarFino.leAgrada(hamburguesaDeCarne1))
+	assert.notThat(paladarFino.leAgrada(hamburguesaDeCarne2))
+	
+}
+
+
+
+
+
+
+
+
+
